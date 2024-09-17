@@ -36,18 +36,10 @@ def load_and_convert_case(imagesTr_image: str, imagesTr_seg: str, labelsTr_image
 if __name__ == "__main__":
     # extracted archive from https://www.kaggle.com/datasets/insaff/massachusetts-roads-dataset?resource=download
     source = '/content/drive/MyDrive/nnunet/data'
-
     dataset_name = 'Dataset019_Hema'
     imagestr = join(nnUNet_raw, dataset_name, 'imagesTr')
-    print("\n")
-    print(imagestr)
-    # imagests_internal = join(nnUNet_raw, dataset_name, 'imagesTs-Internal')
-    # imagests_external = join(nnUNet_raw, dataset_name, 'imagesTs-External')
     labelstr = join(nnUNet_raw, dataset_name, 'labelsTr')
-    # labelsts = join(nnUNet_raw, dataset_name, 'labelsTs')
     maybe_mkdir_p(imagestr)
-    # maybe_mkdir_p(imagests_internal)
-    # maybe_mkdir_p(labelstr_external)
     maybe_mkdir_p(labelstr)
 
     with multiprocessing.get_context("spawn").Pool(8) as p:
@@ -69,24 +61,6 @@ if __name__ == "__main__":
                     )
                 )
 
-        # test set
-        # valid_ids = subfiles(join(test_source, 'labelsTr'), join=False, suffix='png')
-        # for v in os.listdir(join(test_source, 'imagesTs-Internal')):
-        #     r.append(
-        #         p.starmap_async(
-        #             load_and_covnert_case,
-        #             ((
-        #                  join(test_source, 'imagesTr', v),
-        #                  join(test_source, 'labelsTr', v),
-        #                  join(imagests, v[:-4] + '_0000.png'),
-        #                  join(labelsts, v),
-        #                  50
-        #              ),)
-        #         )
-        #     )
-        # for i in r:
-        #     print(i.get())
-        #     break
         _ = [i.get() for i in r]
         num_train = len(os.listdir(join(source, "imagesTr")))
 
