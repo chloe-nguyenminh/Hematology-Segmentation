@@ -1,28 +1,28 @@
 # Hematology Segmentation
 ## Overview:
-This repository contains implementations of deep learning models for segmenting hematology images, focusing on blood cell analysis. It uses both CNN and transformer-based approaches, integrating the nnUNet framework for model adaptability and high-performance segmentation. The main goal is to automate cell identification and segmentation in hematological images, improving efficiency in clinical diagnostics.\
+This repository contains implementations of deep learning models for segmenting hematology images, focusing on blood cell analysis. It uses both CNN and transformer-based approaches, integrating the nnUNet framework for model adaptability and high-performance segmentation. The main goal is to automate cell identification and segmentation in hematological images, improving efficiency in clinical diagnostics.
 
 ## Installation:
 Clone the repository:\
 `git clone https://github.com/chloe-nguyenminh/Hematology-Segmentation.git`
 
-Create a conda virtual environment.\
-`conda create --name hema-seg python=3.10`\
-`conda init`\
-`conda activate hema-seg`\
+Create a conda virtual environment.
+`conda create --name hema-seg python=3.10`
+`conda init`
+`conda activate hema-seg`
 
 Install Pytorch:\
-`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`\
+`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 
 Install the Repository:\
-`cd TriALS`\
-`pip install -e .`\
+`cd TriALS`
+`pip install -e .`
 
-#Steps to reproduce the result\
-##I. Data Preparation:\
-To follow the nnU-Net V2 requirement for data preparation, the below steps must be run to adapt the Hematology dataset:\
+#Steps to reproduce the result
+##I. Data Preparation:
+To follow the nnU-Net V2 requirement for data preparation, the below steps must be run to adapt the Hematology dataset:
 
-1. Download and save the dataset into your `data/Original_data` directory\
+1. Download and save the dataset into your `data/Original_data` directory
 2. Export global environment variables\
 `export dataset_name='Dataset019_Hema'
 export source="data/Original_data"
@@ -30,7 +30,7 @@ export nnUNet_raw=<path-to>/data/nnUNet_raw_data_base/
 export nnUNet_preprocessed=<path-to>/data/nnUNet_preprocessed/
 export nnUNet_results=<path-to>/data/nnUNet_results/`
 
-3. Convert the Hematology dataset into nnU-Net format:\
+3. Convert the Hematology dataset into nnU-Net format:
 For each `folder` of training and testing images:\
 `python preprocess_imgs.py --img_dir=<path_to>\folder_name\`
 `python Dataset019_Hema.py --img_dir=<path_to>\preprocessed_folder\`
