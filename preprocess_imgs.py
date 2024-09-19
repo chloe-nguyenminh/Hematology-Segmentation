@@ -30,7 +30,7 @@ def preprocessing(img_dir: str):
         im = im.convert('RGB')
       assert np.array(im).shape == (360,360,3)
       
-      im.save(join(save_dir, img_id+'_0000.png'))
+      im.save(join(save_dir, img_id+'.png'))
 
     with open(join(os.path.dirname(img_dir), folder_name +".json"), 'w') as outfile:
       json.dump(json_dict, outfile)
