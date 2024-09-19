@@ -34,8 +34,6 @@ def load_and_convert_case(imagesTr_image: str, imagesTr_seg: str, labelsTr_image
 
 
 if __name__ == "__main__":
-    # extracted archive from https://www.kaggle.com/datasets/insaff/massachusetts-roads-dataset?resource=download
-    source = '/content/drive/MyDrive/nnunet/data'
     dataset_name = 'Dataset019_Hema'
     imagestr = join(nnUNet_raw, dataset_name, 'imagesTr')
     labelstr = join(nnUNet_raw, dataset_name, 'labelsTr')
@@ -69,5 +67,4 @@ if __name__ == "__main__":
                           labels={'background': 0, 'cytoplasm': 1, 'nucleus': 2},
                           num_training_cases=num_train, 
                           file_ending='.png',
-                          dataset_name=dataset_name,
-                          overwrite_image_reader_write="SwinUNetrNaturalImage2DIO")
+                          dataset_name=dataset_name)

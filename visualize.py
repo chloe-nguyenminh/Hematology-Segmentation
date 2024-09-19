@@ -25,13 +25,11 @@ def visualize(img_path: str,
     for filename in tqdm(sorted(os.listdir(img_path))):
       name, ext = os.path.splitext(filename)
       name_ext_dict[name] = ext      
-
+    print(list(name_ext_dict.keys())[0])
     for mask_name in tqdm(sorted(os.listdir(label_path))):
       img_name = mask_name.split('.')[0][:-6] + name_ext_dict[mask_name.split('.')[0][:-6]]
-      print(img_name)
       img = np.array(Image.open(join(img_path, img_name)), dtype=np.uint8)
       mask = np.uint8(io.imread(join(label_path, mask_name)))
-
       _, axs = plt.subplots(1, 2, figsize=(10, 10))
       axs[0].imshow(img)
       show_mask(mask, axs[0])
@@ -51,17 +49,17 @@ if __name__ == "__main__":
   parser.add_argument(
     "--img_path",
     type=str,
-    default=internal_test_dir,
+    default=external_test_dir,
   )
   parser.add_argument(
     "--label_path",
     type=str,
-    default=os.path.join(nnUNet_results, "Dataset019_Hema/seg-Internal-UNet/postprocessed/"),
+    default=os.path.join(nnUNet_results, "Dataset019_Hema/seg-External-Trans/postprocessed/"),
   )
   parser.add_argument(
     "--save_path",
     type=str,
-    default=os.path.join(nnUNet_results, "Dataset019_Hema/visualized-seg-Internal-UNet/"),
+    default=os.path.join(nnUNet_results, "Dataset019_Hema/visualized-seg-External-Trans/"),
   )
 
   args = parser.parse_args()
