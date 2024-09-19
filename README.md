@@ -7,37 +7,37 @@ Clone the repository:\
 `git clone https://github.com/chloe-nguyenminh/Hematology-Segmentation.git`
 
 Create a conda virtual environment.
-`conda create --name hema-seg python=3.10`
-`conda init`
-`conda activate hema-seg`
+`conda create --name hema-seg python=3.10`\
+`conda init`\
+`conda activate hema-seg`\
 
 Install Pytorch:\
 `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 
 Install the Repository:\
-`cd TriALS`
-`pip install -e .`
+`cd TriALS`\
+`pip install -e .`\
 
-#Steps to reproduce the result
-##I. Data Preparation:
+# Steps to reproduce the result
+## I. Data Preparation:
 To follow the nnU-Net V2 requirement for data preparation, the below steps must be run to adapt the Hematology dataset:
 
 1. Download and save the dataset into your `data/Original_data` directory
 2. Export global environment variables\
-`export dataset_name='Dataset019_Hema'
-export source="data/Original_data"
-export nnUNet_raw=<path-to>/data/nnUNet_raw_data_base/
-export nnUNet_preprocessed=<path-to>/data/nnUNet_preprocessed/
-export nnUNet_results=<path-to>/data/nnUNet_results/`
+`export dataset_name='Dataset019_Hema`\
+`export source="data/Original_data`\
+`export nnUNet_raw=<path-to>/data/nnUNet_raw_data_base/`\
+`export nnUNet_preprocessed=<path-to>/data/nnUNet_preprocessed/`\
+`export nnUNet_results=<path-to>/data/nnUNet_results/`\
 
 3. Convert the Hematology dataset into nnU-Net format:
 For each `folder` of training and testing images:\
-`python preprocess_imgs.py --img_dir=<path_to>\folder_name\`
-`python Dataset019_Hema.py --img_dir=<path_to>\preprocessed_folder\`
-After the first command, new `preprocessed_folder_name` will be created corresponding to each folder to avoid overwriting the original data for more robust development.
-After the second command, preprocessed images in nnU-Net requirements, as well as a json file containing metadata will be created.
+`python preprocess_imgs.py --img_dir=<path_to>/folder_name/`\
+`python Dataset019_Hema.py --img_dir=<path_to>/preprocessed_folder/`\
 
-4. Experiment planning and preprocessing:\
+New `preprocessed_folder_name` will be created corresponding to each folder to avoid overwriting the original data for more robust development. Two json files will be created, one containing the original size of the images and another containing the metadata of the dataset. This information can be changed in the `Dataset019_Hema.py` if needed.
+
+5. Experiment planning and preprocessing:\
 `nnUNetv2_plan_and_preprocess -d 019 --verify_dataset_integrity`
 
 
@@ -51,15 +51,15 @@ To train the SAMed model:\
 If there are errors with Torchynamo, or died background worker, the following setup can be added before each command: \
 `TORCH_LOGS="+dynamo" TORCHDYNAMO_VERBOSE=1 nnUNet_n_proc_DA=0`
 
-Determine the best configuration after running full cross-validation:\
+To determine the best configuration after running full cross-validation:\
 `nnUNetv2_find_best_configuration Dataset019_Hema -c 2d`
 
 ## III. Inference
-To run inference which incorporate both nnU-Net inference and postprocessing accommodated for the Hematology dataset, run:\
+To run inference which incorporate both nnU-Net inference and postprocessing accommodated for the Hematology dataset:\
 `python inference.py --input_path=<path_to_input_images> --output_path=<path_to_output_images>`
 
-To visualize the segmentation masks overlaid on the corresponding original images and side by side, run:\
+To visualize the segmentation masks overlaid onto the corresponding original images and a side-by-side comparison:\
 `python visualize.py --input_path=<path_to_input_images> --output_path=<path_to_output_images>`
 
-## IV. Acknowledgement:\
+## IV. Acknowledgement:
 The implementation of nnU-Net is adapted from https://github.com/MIC-DKFZ/nnUNet. The implementation of the embedded SAM training functionalities within the nnU-Net framework is adapted from https://github.com/xmed-lab/TriALS.
