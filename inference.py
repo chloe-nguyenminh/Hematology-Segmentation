@@ -26,7 +26,6 @@ def postprocessing(img_dir: str,
       for img_name in sorted(tqdm(os.listdir(img_dir))):
         if img_name.endswith('png'):
           np_label = np.uint8(io.imread(join(label_dir, img_name)))
-          print(np.unique(np_label))
           ori_size = data_dict[img_name.split(".")[0]]
           np_label = resize(np_label, ori_size, order=0, preserve_range=True)
           io.imsave(join(save_dir, img_name.split('.')[0]+'_label.png'), np_label)
